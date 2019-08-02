@@ -753,17 +753,53 @@ namespace gml {
    template<class T> GML_CI Vector4<T> operator*(T a, const Vector4<T>& b) noexcept { return Vector4<T>(a) * b; }
    template<class T> GML_CI Vector4<T> operator/(T a, const Vector4<T>& b) noexcept { return Vector4<T>(a) / b; }
    template<class T> GML_CI Vector2<T>& operator+=(Vector2<T>& a, T b) noexcept { return a += Vector2<T>(b); }
-   template<class T> GML_CI Vector2<T>& operator-=(Vector2<T>& a, T b) noexcept { return a += Vector2<T>(b); }
-   template<class T> GML_CI Vector2<T>& operator*=(Vector2<T>& a, T b) noexcept { return a += Vector2<T>(b); }
-   template<class T> GML_CI Vector2<T>& operator/=(Vector2<T>& a, T b) noexcept { return a += Vector2<T>(b); }
+   template<class T> GML_CI Vector2<T>& operator-=(Vector2<T>& a, T b) noexcept { return a -= Vector2<T>(b); }
+   template<class T> GML_CI Vector2<T>& operator*=(Vector2<T>& a, T b) noexcept { return a *= Vector2<T>(b); }
+   template<class T> GML_CI Vector2<T>& operator/=(Vector2<T>& a, T b) noexcept { return a /= Vector2<T>(b); }
    template<class T> GML_CI Vector3<T>& operator+=(Vector3<T>& a, T b) noexcept { return a += Vector3<T>(b); }
-   template<class T> GML_CI Vector3<T>& operator-=(Vector3<T>& a, T b) noexcept { return a += Vector3<T>(b); }
-   template<class T> GML_CI Vector3<T>& operator*=(Vector3<T>& a, T b) noexcept { return a += Vector3<T>(b); }
-   template<class T> GML_CI Vector3<T>& operator/=(Vector3<T>& a, T b) noexcept { return a += Vector3<T>(b); }
+   template<class T> GML_CI Vector3<T>& operator-=(Vector3<T>& a, T b) noexcept { return a -= Vector3<T>(b); }
+   template<class T> GML_CI Vector3<T>& operator*=(Vector3<T>& a, T b) noexcept { return a *= Vector3<T>(b); }
+   template<class T> GML_CI Vector3<T>& operator/=(Vector3<T>& a, T b) noexcept { return a /= Vector3<T>(b); }
    template<class T> GML_CI Vector4<T>& operator+=(Vector4<T>& a, T b) noexcept { return a += Vector4<T>(b); }
-   template<class T> GML_CI Vector4<T>& operator-=(Vector4<T>& a, T b) noexcept { return a += Vector4<T>(b); }
-   template<class T> GML_CI Vector4<T>& operator*=(Vector4<T>& a, T b) noexcept { return a += Vector4<T>(b); }
-   template<class T> GML_CI Vector4<T>& operator/=(Vector4<T>& a, T b) noexcept { return a += Vector4<T>(b); }
+   template<class T> GML_CI Vector4<T>& operator-=(Vector4<T>& a, T b) noexcept { return a -= Vector4<T>(b); }
+   template<class T> GML_CI Vector4<T>& operator*=(Vector4<T>& a, T b) noexcept { return a *= Vector4<T>(b); }
+   template<class T> GML_CI Vector4<T>& operator/=(Vector4<T>& a, T b) noexcept { return a /= Vector4<T>(b); }
+   template<class T, int S, int A, int B> GML_CI Vector2<T> operator+(const Swizzle2<T, S, A, B>& a, T b) noexcept { return a + Vector2<T>(b); }
+   template<class T, int S, int A, int B> GML_CI Vector2<T> operator-(const Swizzle2<T, S, A, B>& a, T b) noexcept { return a - Vector2<T>(b); }
+   template<class T, int S, int A, int B> GML_CI Vector2<T> operator*(const Swizzle2<T, S, A, B>& a, T b) noexcept { return a * Vector2<T>(b); }
+   template<class T, int S, int A, int B> GML_CI Vector2<T> operator/(const Swizzle2<T, S, A, B>& a, T b) noexcept { return a / Vector2<T>(b); }
+   template<class T, int S, int A, int B> GML_CI Vector2<T> operator+(T a, const Swizzle2<T, S, A, B>& b) noexcept { return Vector2<T>(a) + b; }
+   template<class T, int S, int A, int B> GML_CI Vector2<T> operator-(T a, const Swizzle2<T, S, A, B>& b) noexcept { return Vector2<T>(a) - b; }
+   template<class T, int S, int A, int B> GML_CI Vector2<T> operator*(T a, const Swizzle2<T, S, A, B>& b) noexcept { return Vector2<T>(a) * b; }
+   template<class T, int S, int A, int B> GML_CI Vector2<T> operator/(T a, const Swizzle2<T, S, A, B>& b) noexcept { return Vector2<T>(a) / b; }
+   template<class T, int S, int A, int B> GML_CI Vector2<T>& operator+=(Swizzle2<T, S, A, B>& a, T b) noexcept { return a += Vector2<T>(b); }
+   template<class T, int S, int A, int B> GML_CI Vector2<T>& operator-=(Swizzle2<T, S, A, B>& a, T b) noexcept { return a -= Vector2<T>(b); }
+   template<class T, int S, int A, int B> GML_CI Vector2<T>& operator*=(Swizzle2<T, S, A, B>& a, T b) noexcept { return a *= Vector2<T>(b); }
+   template<class T, int S, int A, int B> GML_CI Vector2<T>& operator/=(Swizzle2<T, S, A, B>& a, T b) noexcept { return a /= Vector2<T>(b); }
+   template<class T, int S, int A, int B, int C> GML_CI Vector3<T> operator+(const Swizzle3<T, S, A, B, C>& a, T b) noexcept { return a + Vector3<T>(b); }
+   template<class T, int S, int A, int B, int C> GML_CI Vector3<T> operator-(const Swizzle3<T, S, A, B, C>& a, T b) noexcept { return a - Vector3<T>(b); }
+   template<class T, int S, int A, int B, int C> GML_CI Vector3<T> operator*(const Swizzle3<T, S, A, B, C>& a, T b) noexcept { return a * Vector3<T>(b); }
+   template<class T, int S, int A, int B, int C> GML_CI Vector3<T> operator/(const Swizzle3<T, S, A, B, C>& a, T b) noexcept { return a / Vector3<T>(b); }
+   template<class T, int S, int A, int B, int C> GML_CI Vector3<T> operator+(T a, const Swizzle3<T, S, A, B, C>& b) noexcept { return Vector3<T>(a) + b; }
+   template<class T, int S, int A, int B, int C> GML_CI Vector3<T> operator-(T a, const Swizzle3<T, S, A, B, C>& b) noexcept { return Vector3<T>(a) - b; }
+   template<class T, int S, int A, int B, int C> GML_CI Vector3<T> operator*(T a, const Swizzle3<T, S, A, B, C>& b) noexcept { return Vector3<T>(a) * b; }
+   template<class T, int S, int A, int B, int C> GML_CI Vector3<T> operator/(T a, const Swizzle3<T, S, A, B, C>& b) noexcept { return Vector3<T>(a) / b; }
+   template<class T, int S, int A, int B, int C> GML_CI Vector3<T>& operator+=(Swizzle3<T, S, A, B, C>& a, T b) noexcept { return a += Vector3<T>(b); }
+   template<class T, int S, int A, int B, int C> GML_CI Vector3<T>& operator-=(Swizzle3<T, S, A, B, C>& a, T b) noexcept { return a -= Vector3<T>(b); }
+   template<class T, int S, int A, int B, int C> GML_CI Vector3<T>& operator*=(Swizzle3<T, S, A, B, C>& a, T b) noexcept { return a *= Vector3<T>(b); }
+   template<class T, int S, int A, int B, int C> GML_CI Vector3<T>& operator/=(Swizzle3<T, S, A, B, C>& a, T b) noexcept { return a /= Vector3<T>(b); }
+   template<class T, int S, int A, int B, int C, int D> GML_CI Vector4<T> operator+(const Swizzle4<T, S, A, B, C, D>& a, T b) noexcept { return a + Vector4<T>(b); }
+   template<class T, int S, int A, int B, int C, int D> GML_CI Vector4<T> operator-(const Swizzle4<T, S, A, B, C, D>& a, T b) noexcept { return a - Vector4<T>(b); }
+   template<class T, int S, int A, int B, int C, int D> GML_CI Vector4<T> operator*(const Swizzle4<T, S, A, B, C, D>& a, T b) noexcept { return a * Vector4<T>(b); }
+   template<class T, int S, int A, int B, int C, int D> GML_CI Vector4<T> operator/(const Swizzle4<T, S, A, B, C, D>& a, T b) noexcept { return a / Vector4<T>(b); }
+   template<class T, int S, int A, int B, int C, int D> GML_CI Vector4<T> operator+(T a, const Swizzle4<T, S, A, B, C, D>& b) noexcept { return Vector4<T>(a) + b; }
+   template<class T, int S, int A, int B, int C, int D> GML_CI Vector4<T> operator-(T a, const Swizzle4<T, S, A, B, C, D>& b) noexcept { return Vector4<T>(a) - b; }
+   template<class T, int S, int A, int B, int C, int D> GML_CI Vector4<T> operator*(T a, const Swizzle4<T, S, A, B, C, D>& b) noexcept { return Vector4<T>(a) * b; }
+   template<class T, int S, int A, int B, int C, int D> GML_CI Vector4<T> operator/(T a, const Swizzle4<T, S, A, B, C, D>& b) noexcept { return Vector4<T>(a) / b; }
+   template<class T, int S, int A, int B, int C, int D> GML_CI Vector4<T>& operator+=(Swizzle4<T, S, A, B, C, D>& a, T b) noexcept { return a += Vector4<T>(b); }
+   template<class T, int S, int A, int B, int C, int D> GML_CI Vector4<T>& operator-=(Swizzle4<T, S, A, B, C, D>& a, T b) noexcept { return a -= Vector4<T>(b); }
+   template<class T, int S, int A, int B, int C, int D> GML_CI Vector4<T>& operator*=(Swizzle4<T, S, A, B, C, D>& a, T b) noexcept { return a *= Vector4<T>(b); }
+   template<class T, int S, int A, int B, int C, int D> GML_CI Vector4<T>& operator/=(Swizzle4<T, S, A, B, C, D>& a, T b) noexcept { return a /= Vector4<T>(b); }
    GML_CI float  Sqrt(float  x, float  curr, float  prev) noexcept { return curr == prev ? curr : Sqrt(x, 0.5f * (curr + x / curr), curr); }
    GML_CI double Sqrt(double x, double curr, double prev) noexcept { return curr == prev ? curr : Sqrt(x, 0.5  * (curr + x / curr), curr); }
    GML_CI Vector2<float> Sqrt(Vector2<float> x, Vector2<float> curr, Vector2<float> prev) noexcept { return curr == prev ? curr : Sqrt(x, (curr + x / curr) * 0.5f, curr); }
