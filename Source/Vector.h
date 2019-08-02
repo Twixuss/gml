@@ -1,40 +1,11 @@
 #pragma once
 #include <corecrt_math.h> // sqrt
-#define GML_I __forceinline
-#define GML_C constexpr
-#define GML_CI GML_C GML_I
+#include "Traits.h"
 #define GML_ENABLE_IF_NUMBER1(A)       class = EnableIf<IsArithmetic<A>>
 #define GML_ENABLE_IF_NUMBER2(A,B)     class = EnableIf<IsArithmetic<A>&&IsArithmetic<B>>
 #define GML_ENABLE_IF_NUMBER3(A,B,C)   class = EnableIf<IsArithmetic<A>&&IsArithmetic<B>&&IsArithmetic<C>>
 #define GML_ENABLE_IF_NUMBER4(A,B,C,D) class = EnableIf<IsArithmetic<A>&&IsArithmetic<B>&&IsArithmetic<C>&&IsArithmetic<D>>
 namespace gml {
-   template<bool b, class T = void> struct EnableIf_ {};
-   template<class T> struct EnableIf_<true, T> { using Type = T; };
-   template<bool b, class T = void>
-   using EnableIf = typename EnableIf_<b, T>::Type;
-
-   template<class T> inline constexpr bool IsArithmetic = false;
-   template<> inline constexpr bool IsArithmetic<bool> = true;
-   template<> inline constexpr bool IsArithmetic<signed char> = true;
-   template<> inline constexpr bool IsArithmetic<signed short> = true;
-   template<> inline constexpr bool IsArithmetic<signed int> = true;
-   template<> inline constexpr bool IsArithmetic<signed long> = true;
-   template<> inline constexpr bool IsArithmetic<signed long long> = true;
-   template<> inline constexpr bool IsArithmetic<unsigned char> = true;
-   template<> inline constexpr bool IsArithmetic<unsigned short> = true;
-   template<> inline constexpr bool IsArithmetic<unsigned int> = true;
-   template<> inline constexpr bool IsArithmetic<unsigned long> = true;
-   template<> inline constexpr bool IsArithmetic<unsigned long long> = true;
-   template<> inline constexpr bool IsArithmetic<float> = true;
-   template<> inline constexpr bool IsArithmetic<double> = true;
-   template<> inline constexpr bool IsArithmetic<long double> = true;
-
-   template<class T, int S>
-   struct Array {
-      T v[S];
-      GML_CI T& operator[](size_t i) { return v[i]; }
-      GML_CI const T& operator[](size_t i)  const { return v[i]; }
-   };
    template<class T, int S, int A>                      struct Swizzle1;
    template<class T, int S, int A, int B>               struct Swizzle2;
    template<class T, int S, int A, int B, int C>        struct Swizzle3;
