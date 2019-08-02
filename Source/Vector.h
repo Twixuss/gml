@@ -1,6 +1,5 @@
 #pragma once
 #include <corecrt_math.h> // sqrt
-#include <xtr1common>
 #define GML_I __forceinline
 #define GML_C constexpr
 #define GML_CI GML_C GML_I
