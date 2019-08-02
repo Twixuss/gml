@@ -34,6 +34,7 @@ namespace gml {
    template<class T, int S, int A, int B>
    struct Swizzle2 {
       Array<T, S> array;
+      GML_CI operator Vector2<T>() noexcept { return { array[A], array[B] }; }
       GML_C Swizzle2& operator=(const Vector2<T>& v) noexcept {
          check();
          array[A] = v.array[0];
@@ -62,6 +63,7 @@ namespace gml {
    template<class T, int S, int A, int B, int C>
    struct Swizzle3 {
       Array<T, S> array;
+      GML_CI operator Vector3<T>() noexcept { return { array[A], array[B], array[C] }; }
       GML_C Swizzle3& operator=(const Vector3<T>& v) noexcept {
          check();
          array[A] = v.array[0];
@@ -93,6 +95,7 @@ namespace gml {
    template<class T, int S, int A, int B, int C, int D>
    struct Swizzle4 {
       Array<T, S> array;
+      GML_CI operator Vector4<T>() noexcept { return { array[A], array[B], array[C], array[D] }; }
       GML_C Swizzle4& operator=(const Vector4<T>& v) noexcept {
          check();
          array[A] = v.array[0];
