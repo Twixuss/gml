@@ -27,8 +27,19 @@ namespace gml {
    template<class T>
    struct Matrix4x4 {
       GML_CI Matrix4x4() noexcept : array({ Vector4<T>{ (T)1,0,0,0 }, Vector4<T>{ 0,(T)1,0,0 }, Vector4<T>{ 0,0,(T)1,0 }, Vector4<T>{ 0,0,0,(T)1 } }) {}
-      GML_CI Matrix4x4(const Quaternion<T>& q) noexcept : array(_GetArrayFromQuaternion(q)) {}
+      GML_CI Matrix4x4(
+         T ix, T iy, T iz, T iw, 
+         T jx, T jy, T jz, T jw,
+         T kx, T ky, T kz, T kw,
+         T lx, T ly, T lz, T lw) noexcept : array({
+            Vector4<T>{ ix,iy,iz,iw },
+            Vector4<T>{ jx,jy,jz,jw },
+            Vector4<T>{ kx,ky,kz,kw },
+            Vector4<T>{ kx,ky,kz,kw }
+            }) {
+      }
       GML_CI Matrix4x4(const Vector4<T>& i, const Vector4<T>& j, const Vector4<T>& k, const Vector4<T>& l) noexcept : array({i,j,k,l}) {}
+      GML_CI Matrix4x4(const Quaternion<T>& q) noexcept : array(_GetArrayFromQuaternion(q)) {}
       Array<Vector4<T>, 4> array;
       GML_CI Vector4<T>& operator[](int i) noexcept { return array[i]; }
       GML_CI const Vector4<T>& operator[](int i) const noexcept { return array[i]; }
