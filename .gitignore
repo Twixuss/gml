@@ -1,1 +1,8 @@
 .vs/
+bin/
+binobj/
+*.sln
+*.vcxproj
+*.vcxproj.user
+*.vcxproj.filters
+CppProperties.json
