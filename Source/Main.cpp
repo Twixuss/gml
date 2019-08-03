@@ -1,10 +1,11 @@
 #include <stdlib.h>
 #include "gml.h"
+#include "gmlIO.h"
 using namespace gml;
 int main() {
-   Vector3<float> angles{ 3.1415926535897932384626433832795f, 0, 0 };
-   Quaternion<float> q = Euler(angles);
-   Matrix4x4<float> m = q;
-   m *= Matrix4x4<float>();
+   Vector4<float> a(1,2,3,4);
+   Print(a);
+   puts("");
+   Print(a.wzyx);
    system("pause");
 }
