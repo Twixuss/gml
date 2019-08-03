@@ -4,6 +4,7 @@
 using namespace gml;
 int main() {
    Vector4<float> a(1,2,3,4);
+   a.x += 1;
    Print(a);
    puts("");
    Print(a.wzyx);
