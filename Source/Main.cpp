@@ -3,6 +3,11 @@
 #include "gmlIO.h"
 using namespace gml;
 int main() {
+   Vector3<float> m;
+
+   m.x += true;
+
+
    Vector4<float> a(1, 2, 3, 4);
    Vector4<float> b(5, 6, 7, 8);
 
