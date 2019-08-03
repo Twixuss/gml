@@ -35,7 +35,7 @@ namespace gml {
             Vector4<T>{ ix,iy,iz,iw },
             Vector4<T>{ jx,jy,jz,jw },
             Vector4<T>{ kx,ky,kz,kw },
-            Vector4<T>{ kx,ky,kz,kw }
+            Vector4<T>{ lx,ly,lz,lw }
             }) {
       }
       GML_CI Matrix4x4(const Vector4<T>& i, const Vector4<T>& j, const Vector4<T>& k, const Vector4<T>& l) noexcept : array({i,j,k,l}) {}
