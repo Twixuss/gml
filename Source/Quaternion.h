@@ -11,7 +11,7 @@ namespace gml {
    template<class T> Quaternion<T> operator/(const Quaternion<T>& q, T v) {
       return { q.x / v, q.y / v, q.z / v, q.w / v };
    }
-   Quaternion<float> Euler(const Vector3<float>& angles){
+   inline Quaternion<float> Euler(const Vector3<float>& angles){
       float cy = cosf(angles[0] * 0.5f);
       float sy = sinf(angles[0] * 0.5f);
       float cp = cosf(angles[1] * 0.5f);
@@ -25,7 +25,7 @@ namespace gml {
          cy * cp * cr + sy * sp * sr
       };
    }
-   Quaternion<double> Euler(const Vector3<double>& angles) {
+   inline Quaternion<double> Euler(const Vector3<double>& angles) {
       double cy = cos(angles[0] * 0.5);
       double sy = sin(angles[0] * 0.5);
       double cp = cos(angles[1] * 0.5);
@@ -39,11 +39,11 @@ namespace gml {
          cy * cp * cr + sy * sp * sr
       };
    }
-   Quaternion<float> Normalize(const Quaternion<float>& q) {
+   inline Quaternion<float> Normalize(const Quaternion<float>& q) {
       float n = sqrtf(q.x + q.y + q.z + q.w);
       return q / n;
    }
-   Quaternion<double> Normalize(const Quaternion<double>& q) {
+   inline Quaternion<double> Normalize(const Quaternion<double>& q) {
       double n = sqrt(q.x + q.y + q.z + q.w);
       return q / n;
    }
