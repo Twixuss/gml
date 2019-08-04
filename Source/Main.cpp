@@ -3,11 +3,6 @@
 #include "gmlIO.h"
 using namespace gml;
 int main() {
-   Vector3<float> m;
-
-   m.x += true;
-
-
    Vector4<float> a(1, 2, 3, 4);
    Vector4<float> b(5, 6, 7, 8);
 
@@ -37,9 +32,29 @@ int main() {
 
    1 + b;
    1 + b.zyw;
-
-   Print(a);
+   
+   Matrix4x4<float> m(
+      0,0,0,0,
+      1,1,1,1,
+      2,2,2,2,
+      3,3,3,3
+   );
+   Print(m[0]);
    puts("");
-   Print(a.wzyx);
+   Print(m[1]);
+   puts("");
+   Print(m[2]);
+   puts("");
+   Print(m[3]);
+   puts("");
+   puts("");
+   m = Transpose(m);
+   Print(m[0]);
+   puts("");
+   Print(m[1]);
+   puts("");
+   Print(m[2]);
+   puts("");
+   Print(m[3]);
    system("pause");
 }

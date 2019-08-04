@@ -115,7 +115,7 @@ namespace gml {
    };
    template<class T>
    struct Vector1 {
-      static_assert(IsArithmetic<T>, "gml::Vector2's template param must be arithmetic");
+      static_assert(IsArithmetic<T>, "gml::Vector1's template param must be arithmetic");
       union {
          Array<T, 1> array;
          Swizzle1<T, 1, 0> x;
@@ -181,7 +181,7 @@ namespace gml {
    };
    template<class T>
    struct Vector3 {
-      static_assert(IsArithmetic<T>, "gml::Vector2's template param must be arithmetic");
+      static_assert(IsArithmetic<T>, "gml::Vector3's template param must be arithmetic");
       union {
          Array<T, 3> array;
          Swizzle1<T, 3, 0> x;
@@ -323,7 +323,7 @@ namespace gml {
    };
    template<class T>
    struct Vector4 {
-      static_assert(IsArithmetic<T>, "gml::Vector2's template param must be arithmetic");
+      static_assert(IsArithmetic<T>, "gml::Vector4's template param must be arithmetic");
       union {
          Array<T, 4> array;
          Swizzle1<T, 4, 0> x;
