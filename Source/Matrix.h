@@ -1,75 +1,9 @@
 #pragma once
-#include "Array.h"
-#include "Quaternion.h"
+#include "Matrix_Scalar.h"
+#ifndef GML_NO_INTRIN
+#include "Matrix_SSE.h"
+#endif
 namespace gml {
-   GML_CI Array<Vector4<float>, 4> _GetArrayFromQuaternion(const Quaternion<float> & q) noexcept {
-      float sqx = q.x * q.x;
-      float sqy = q.y * q.y;
-      float sqz = q.z * q.z;
-      return {
-         Vector4<float>{ 1.0f - 2.0f * sqy - 2.0f * sqz,      2.0f * q.x * q.y - 2.0f * q.z * q.w, 2.0f * q.x * q.z + 2.0f * q.y * q.w, 0.0f },
-         Vector4<float>{ 2.0f * q.x * q.y + 2.0f * q.z * q.w, 1.0f - 2.0f * sqx - 2.0f * sqz,      2.0f * q.y * q.z - 2.0f * q.x * q.w, 0.0f },
-         Vector4<float>{ 2.0f * q.x * q.z - 2.0f * q.y * q.w, 2.0f * q.y * q.z + 2.0f * q.x * q.w, 1.0f - 2.0f * sqx - 2.0f * sqy,      0.0f },
-         Vector4<float>{ 0.0f,                                0.0f,                                0.0f,                                1.0f }
-      };
-   }
-   GML_CI Array<Vector4<double>, 4> _GetArrayFromQuaternion(const Quaternion<double> & q) noexcept {
-      double sqx = q.x * q.x;
-      double sqy = q.y * q.y;
-      double sqz = q.z * q.z;
-      return {
-         Vector4<double>{ 1.0 - 2.0 * sqy - 2.0 * sqz,       2.0 * q.x * q.y - 2.0 * q.z * q.w, 2.0 * q.x * q.z + 2.0 * q.y * q.w, 0.0 },
-         Vector4<double>{ 2.0 * q.x * q.y + 2.0 * q.z * q.w, 1.0 - 2.0 * sqx - 2.0 * sqz,       2.0 * q.y * q.z - 2.0 * q.x * q.w, 0.0 },
-         Vector4<double>{ 2.0 * q.x * q.z - 2.0 * q.y * q.w, 2.0 * q.y * q.z + 2.0 * q.x * q.w, 1.0 - 2.0 * sqx - 2.0 * sqy,       0.0 },
-         Vector4<double>{ 0.0,                               0.0,                               0.0,                               1.0 }
-      };
-   }
-   template<class T>
-   struct Matrix4x4 {
-      static_assert(IsArithmetic<T>, "gml::Matrix4x4's template param must be arithmetic");
-      GML_CI Matrix4x4() noexcept : array({ Vector4<T>{ (T)1,0,0,0 }, Vector4<T>{ 0,(T)1,0,0 }, Vector4<T>{ 0,0,(T)1,0 }, Vector4<T>{ 0,0,0,(T)1 } }) {}
-      GML_CI Matrix4x4(
-         T ix, T iy, T iz, T iw,
-         T jx, T jy, T jz, T jw,
-         T kx, T ky, T kz, T kw,
-         T lx, T ly, T lz, T lw) noexcept : array({
-            Vector4<T>{ ix,iy,iz,iw },
-            Vector4<T>{ jx,jy,jz,jw },
-            Vector4<T>{ kx,ky,kz,kw },
-            Vector4<T>{ lx,ly,lz,lw }
-            }) {
-      }
-      GML_CI Matrix4x4(const Vector4<T>& i, const Vector4<T>& j, const Vector4<T>& k, const Vector4<T>& l) noexcept : array({ i,j,k,l }) {}
-      GML_CI Matrix4x4(const Quaternion<T>& q) noexcept : array(_GetArrayFromQuaternion(q)) {}
-      Array<Vector4<T>, 4> array;
-      GML_CI Vector4<T>& operator[](int i) noexcept { return array[i]; }
-      GML_CI const Vector4<T>& operator[](int i) const noexcept { return array[i]; }
-   };
-   template<class T>
-   GML_CI Vector4<T> operator*(const Matrix4x4<T>& a, const Vector4<T>& b) noexcept {
-      return
-      {
-         a[0][0] * b[0] + a[1][0] * b[1] + a[2][0] * b[2] + a[3][0] * b[3],
-         a[0][1] * b[0] + a[1][1] * b[1] + a[2][1] * b[2] + a[3][1] * b[3],
-         a[0][2] * b[0] + a[1][2] * b[1] + a[2][2] * b[2] + a[3][2] * b[3],
-         a[0][3] * b[0] + a[1][3] * b[1] + a[2][3] * b[2] + a[3][3] * b[3]
-      };
-   }
-   template<class T>
-   GML_CI Matrix4x4<T> operator*(const Matrix4x4<T>& a, const Matrix4x4<T>& b) noexcept {
-      return
-      {
-         a * b[0],
-         a * b[1],
-         a * b[2],
-         a * b[3]
-      };
-   }
-   template<class T>
-   GML_CI Matrix4x4<T>& operator*=(Matrix4x4<T>& a, const Matrix4x4<T>& b) noexcept {
-      a = a * b;
-      return a;
-   }
    template<class T>
    GML_CI Matrix4x4<T> Transpose(const Matrix4x4<T>& a) noexcept {
       return {
@@ -90,28 +24,28 @@ namespace gml {
       };
    }
    template<class T>
-   GML_CI Matrix4x4<T> Translation(const Vector3<T>& v) noexcept { return Translation(v.x, v.y, v.z); }
+   GML_CI Matrix4x4<T> Translation(const Vec3<T>& v) noexcept { return Translation(v.x, v.y, v.z); }
 
    template<class T, int D = 4> GML_CI Matrix4x4<T> RotationX(T a) noexcept { static_assert(false, "Can't create matrix with this type or/and dimensions"); }
    template<class T, int D = 4> GML_CI Matrix4x4<T> RotationY(T a) noexcept { static_assert(false, "Can't create matrix with this type or/and dimensions"); }
    template<class T, int D = 4> GML_CI Matrix4x4<T> RotationZ(T a) noexcept { static_assert(false, "Can't create matrix with this type or/and dimensions"); }
-   template<> GML_CI Matrix4x4<float> RotationX<float, 4>(float a) noexcept {
+   template<> GML_I Matrix4x4<float> RotationX<float, 4>(float a) noexcept {
       return {
          1, 0,       0,       0,
-         0, cosf(a), sinf(a), 0,
-         0,-sinf(a), cosf(a), 0,
+         0, cosf(a),-sinf(a), 0,
+         0, sinf(a), cosf(a), 0,
          0, 0,       0,       1,
       };
    }
-   template<> GML_CI Matrix4x4<float> RotationY<float, 4>(float a) noexcept {
+   template<> GML_I Matrix4x4<float> RotationY<float, 4>(float a) noexcept {
       return {
-         cosf(a), 0, sinf(a), 0,
+         cosf(a), 0,-sinf(a), 0,
          0,       1, 0,       0,
-        -sinf(a), 0, cosf(a), 0,
+         sinf(a), 0, cosf(a), 0,
          0,       0, 0,       1,
       };
    }
-   template<> GML_CI Matrix4x4<float> RotationZ<float, 4>(float a) noexcept {
+   template<> GML_I Matrix4x4<float> RotationZ<float, 4>(float a) noexcept {
       return {
          cosf(a), sinf(a), 0, 0,
         -sinf(a), cosf(a), 0, 0,
@@ -129,23 +63,26 @@ namespace gml {
    }
    template<> GML_CI Matrix4x4<double> RotationY<double, 4>(double a) noexcept {
       return {
-         cos(a), 0, sin(a), 0,
+         cos(a), 0,-sin(a), 0,
          0,      1, 0,      0,
-        -sin(a), 0, cos(a), 0,
+         sin(a), 0, cos(a), 0,
          0,      0, 0,      1,
       };
    }
    template<> GML_CI Matrix4x4<double> RotationZ<double, 4>(double a) noexcept {
       return {
-         cos(a), sin(a), 0, 0,
-        -sin(a), cos(a), 0, 0,
+         cos(a),-sin(a), 0, 0,
+         sin(a), cos(a), 0, 0,
          0,      0,      1, 0,
          0,      0,      0, 1
       };
    }
-   template<class T, int D = 4> GML_CI auto RotationZXY(const Vector3<T>& v) noexcept { return (RotationY<T, D>(v.y) * RotationX<T, D>(v.x)) * RotationZ<T, D>(v.z); }
-   template<class T, int D = 4> GML_CI auto RotationYXZ(const Vector3<T>& v) noexcept { return (RotationZ<T, D>(v.z) * RotationX<T, D>(v.x)) * RotationY<T, D>(v.y); }
+   template<class T, int D = 4, GML_ENABLE_IF_NUMBER(T)> GML_CI auto RotationZXY(T x, T y, T z) noexcept { return (RotationY<T, D>(y) * RotationX<T, D>(x)) * RotationZ<T, D>(z); }
+   template<class T, int D = 4, GML_ENABLE_IF_NUMBER(T)> GML_CI auto RotationYXZ(T x, T y, T z) noexcept { return (RotationZ<T, D>(z) * RotationX<T, D>(x)) * RotationY<T, D>(y); }
+   template<class T, int D = 4> GML_CI auto RotationZXY(const Vec3<T> & v) noexcept { return (RotationY<T, D>(v.y) * RotationX<T, D>(v.x)) * RotationZ<T, D>(v.z); }
+   template<class T, int D = 4> GML_CI auto RotationYXZ(const Vec3<T> & v) noexcept { return (RotationZ<T, D>(v.z) * RotationX<T, D>(v.x)) * RotationY<T, D>(v.y); }
    template<class T, int D = 4> GML_CI static Matrix4x4<T> Scaling(T x, T y, T z) noexcept { static_assert(false, "Can't create matrix with this type or/and dimensions"); }
+#ifdef GML_NO_INTRIN
    template<> GML_CI static Matrix4x4<float> Scaling<float, 4>(float x, float y, float z) noexcept {
       return {
          x, 0, 0, 0,
@@ -154,5 +91,15 @@ namespace gml {
          0, 0, 0, 1
       };
    }
-   template<class T, int D = 4> GML_CI static Matrix4x4<T> Scaling(const Vector3<T> & v) noexcept { return Scaling<T, 4>(v.x, v.y, v.z); }
+#else
+   template<> GML_I static Matrix4x4<float> Scaling<float, 4>(float x, float y, float z) noexcept {
+      return {
+         _gml_set_ps(x, 0, 0, 0),
+         _gml_set_ps(0, y, 0, 0),
+         _gml_set_ps(0, 0, z, 0),
+         _gml_set_ps(0, 0, 0, 1)
+      };
+   }
+#endif
+   template<class T, int D = 4> GML_CI static Matrix4x4<T> Scaling(const Vec3<T> & v) noexcept { return Scaling<T, 4>(v.x, v.y, v.z); }
 }

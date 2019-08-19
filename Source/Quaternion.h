@@ -11,34 +11,23 @@ namespace gml {
    template<class T> Quaternion<T> operator/(const Quaternion<T>& q, T v) {
       return { q.x / v, q.y / v, q.z / v, q.w / v };
    }
-   inline Quaternion<float> Euler(const Vector3<float>& angles){
-      float cy = cosf(angles[0] * 0.5f);
-      float sy = sinf(angles[0] * 0.5f);
-      float cp = cosf(angles[1] * 0.5f);
-      float sp = sinf(angles[1] * 0.5f);
-      float cr = cosf(angles[2] * 0.5f);
-      float sr = sinf(angles[2] * 0.5f);
+   template<class T, GML_ENABLE_IF_NUMBER(T)>
+   inline Quaternion<T> Euler(T yaw, T pitch, T roll){
+      float cx = cosf(roll *  0.5f);
+      float sx = sinf(roll *  0.5f);
+      float cy = cosf(pitch * -0.5f);
+      float sy = sinf(pitch * -0.5f);
+      float cz = cosf(yaw *  0.5f);
+      float sz = sinf(yaw *  0.5f);
       return {
-         cy * cp * sr - sy * sp * cr,
-         sy * cp * sr + cy * sp * cr,
-         sy * cp * cr - cy * sp * sr,
-         cy * cp * cr + sy * sp * sr
+         cx * cy * sz - sx * sy * cz,
+         sx * cy * sz + cx * sy * cz,
+         sx * cy * cz - cx * sy * sz,
+         cx * cy * cz + sx * sy * sz
       };
    }
-   inline Quaternion<double> Euler(const Vector3<double>& angles) {
-      double cy = cos(angles[0] * 0.5);
-      double sy = sin(angles[0] * 0.5);
-      double cp = cos(angles[1] * 0.5);
-      double sp = sin(angles[1] * 0.5);
-      double cr = cos(angles[2] * 0.5);
-      double sr = sin(angles[2] * 0.5);
-      return {
-         cy * cp * sr - sy * sp * cr,
-         sy * cp * sr + cy * sp * cr,
-         sy * cp * cr - cy * sp * sr,
-         cy * cp * cr + sy * sp * sr
-      };
-   }
+   template<class T>
+   inline Quaternion<T> Euler(const Vec3<T>& a) { return Euler<T>(a.x, a.y, a.z); }
    inline Quaternion<float> Normalize(const Quaternion<float>& q) {
       float n = sqrtf(q.x + q.y + q.z + q.w);
       return q / n;
